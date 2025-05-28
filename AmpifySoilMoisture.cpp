@@ -1,6 +1,7 @@
 #include "Arduino.h"
 #include "AmpifySoilMoisture.h"
 
+//TODO: Change to 1000ms
 #define MIN_INTERVAL_MS 2000UL
 
 // normal soil class
@@ -11,6 +12,7 @@ AmpifySoilMoisture::AmpifySoilMoisture(int pin)
   _pin = pin;
 }
 
+//TODO: Make parameter optional with default 200ms
 void AmpifySoilMoisture::begin(unsigned long periodMs)
 {
   Serial.println("in begin()");
@@ -32,6 +34,8 @@ unsigned long AmpifySoilMoisture::getPeriod()
   return _periodMs;
 }
 
+
+//TODO: Make this function return Hz not Count (need to divide periodMs) in Integer
 unsigned long AmpifySoilMoisture::readMoisture(bool force)
 {
   Serial.println("in readMoisture");

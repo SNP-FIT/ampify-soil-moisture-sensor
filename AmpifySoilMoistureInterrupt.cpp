@@ -47,7 +47,10 @@ AmpifySoilMoistureInterrupt::AmpifySoilMoistureInterrupt(int pin) {
   _pin = pin;
 }
 
+
+//TODO: Make parameter optional with default 200ms
 bool AmpifySoilMoistureInterrupt::begin(unsigned long periodMs) {
+  //TODO: Remove all unnecessary Serial.print
   Serial.println("in begin()");
   _periodMs = periodMs;
 
@@ -86,6 +89,7 @@ unsigned long AmpifySoilMoistureInterrupt::getPeriod() {
   return _periodMs;
 }
 
+//TODO: Make this function return Hz not Count (need to divide periodMs) in Integers
 unsigned long AmpifySoilMoistureInterrupt::readMoisture() {
   return timer1.getMoistureCounter();
 }
