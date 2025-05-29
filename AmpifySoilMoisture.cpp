@@ -1,21 +1,18 @@
 #include "Arduino.h"
 #include "AmpifySoilMoisture.h"
 
-//TODO: Change to 1000ms
-#define MIN_INTERVAL_MS 2000UL
+#define MIN_INTERVAL_MS 1000UL
 
 // normal soil class
-uint32_t AmpifySoilMoisture::_periodMs = 100;
+uint32_t AmpifySoilMoisture::_periodMs = 200;
 
 AmpifySoilMoisture::AmpifySoilMoisture(int pin)
 {
   _pin = pin;
 }
 
-//TODO: Make parameter optional with default 200ms
 void AmpifySoilMoisture::begin(unsigned long periodMs)
 {
-  Serial.println("in begin()");
   _periodMs = periodMs;
   _lastReadTimeMicros = micros() - (MIN_INTERVAL_MS * 1000);
 
@@ -34,11 +31,8 @@ unsigned long AmpifySoilMoisture::getPeriod()
   return _periodMs;
 }
 
-
-//TODO: Make this function return Hz not Count (need to divide periodMs) in Integer
 unsigned long AmpifySoilMoisture::readMoisture(bool force)
 {
-  Serial.println("in readMoisture");
   unsigned long startMicros = micros();
 
   if (!force && ((startMicros - _lastReadTimeMicros) < (MIN_INTERVAL_MS * 1000)))
@@ -67,8 +61,9 @@ unsigned long AmpifySoilMoisture::readMoisture(bool force)
 
   } while (currentMicros - startMicros < (_periodMs * 1000));
 
-  _lastResult = count;
-  return count; // TODOS calculate percentage
+  // calculate Hz
+  _lastResult = (count * 1000) / _periodMs;
+  return _lastResult;
 }
 
 uint8_t AmpifySoilMoisture::_digitalReadFast()

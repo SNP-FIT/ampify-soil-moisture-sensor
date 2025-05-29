@@ -1,10 +1,10 @@
 # Ampify Soil Moisture Sensor
 
-AmpifySoilMoisture    KEYWORD1
+AmpifySoilMoisture	KEYWORD1
 begin	KEYWORD2
-setPeriod   KEYWORD2
-getPeriod   KEYWORD2
-readMoisture   KEYWORD2
+setPeriod	KEYWORD2
+getPeriod	KEYWORD2
+readMoisture	KEYWORD2
 
 # Ampify Soil Moisture Sensor Interrupt
 

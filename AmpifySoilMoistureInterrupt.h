@@ -4,19 +4,20 @@
 #include "Arduino.h"
 #include <stdint.h>
 
-class AmpifySoilMoistureInterrupt {
-  public:
-    AmpifySoilMoistureInterrupt(int pin);
-    bool begin(unsigned long periodMs);
+class AmpifySoilMoistureInterrupt
+{
+public:
+  AmpifySoilMoistureInterrupt(int pin);
+  bool begin(unsigned long periodMs = 200);
 
-    void setPeriod(unsigned long periodMs);
-    static unsigned long getPeriod();
+  void setPeriod(unsigned long periodMs);
+  static unsigned long getPeriod();
 
-    unsigned long readMoisture();
+  unsigned long readMoisture();
 
-  private:
-    int _pin;
-    static uint32_t _periodMs;
+private:
+  int _pin;
+  static uint32_t _periodMs;
 };
 
 #endif

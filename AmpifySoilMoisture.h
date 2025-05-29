@@ -8,8 +8,7 @@ class AmpifySoilMoisture
 {
 public:
   AmpifySoilMoisture(int pin);
-  //    void begin(unsigned long periodMs,bool useInterrupt = false); //TODOS
-  void begin(unsigned long periodMs);
+  void begin(unsigned long periodMs = 200);
   void setPeriod(unsigned long periodMs);
   static unsigned long getPeriod();
   unsigned long readMoisture(bool force = false);
