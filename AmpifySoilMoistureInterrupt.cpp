@@ -4,6 +4,7 @@
 #define GLITCH_US 5
 
 // timer1 class
+#if defined(ARDUINO_ARCH_AVR)
 class Timer1Utils
 {
 public:
@@ -45,6 +46,7 @@ ISR(TIMER1_COMPA_vect)
     timer1.timerCounter = 0;
   }
 }
+#endif // defined(ARDUINO_ARCH_AVR)
 // end timer1 class
 
 uint32_t AmpifySoilMoistureInterrupt::_periodMs = 200;
@@ -54,6 +56,7 @@ AmpifySoilMoistureInterrupt::AmpifySoilMoistureInterrupt(int pin)
   _pin = pin;
 }
 
+#if defined(ARDUINO_ARCH_AVR)
 bool AmpifySoilMoistureInterrupt::begin(unsigned long periodMs)
 {
   _periodMs = periodMs;
@@ -85,6 +88,7 @@ bool AmpifySoilMoistureInterrupt::begin(unsigned long periodMs)
 
   return true;
 }
+#endif // defined(ARDUINO_ARCH_AVR)
 
 void AmpifySoilMoistureInterrupt::setPeriod(unsigned long periodMs)
 {
@@ -96,7 +100,9 @@ unsigned long AmpifySoilMoistureInterrupt::getPeriod()
   return _periodMs;
 }
 
+#if defined(ARDUINO_ARCH_AVR)
 unsigned long AmpifySoilMoistureInterrupt::readMoisture()
 {
   return (timer1.getMoistureCounter() * 1000) / _periodMs;
 }
+#endif // defined(ARDUINO_ARCH_AVR)
