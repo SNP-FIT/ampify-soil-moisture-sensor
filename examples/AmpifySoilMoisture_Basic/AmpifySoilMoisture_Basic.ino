@@ -4,7 +4,7 @@
     This example demonstrates how to use AmpifySoilMoisture library
     to read moisture value from Ampify Soil Moisture sensor.
 
-    This example is to be used with AVR board connected to Ampify Soil Moisture sensor.
+    This example is to be used with AVR board (such as Arduino UNO), esp32 and esp8266 connected to Ampify Soil Moisture sensor.
 */
 
 #include "AmpifySoilMoisture.h"
