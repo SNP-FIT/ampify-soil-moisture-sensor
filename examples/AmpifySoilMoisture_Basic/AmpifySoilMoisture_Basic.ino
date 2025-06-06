@@ -9,10 +9,14 @@
 
 #include "AmpifySoilMoisture.h"
 
+#define MOISTURE_MIN_VALUE 0
+#define MOISTURE_MAX_VALUE 30000
+
 const int dataPin = 2;
 AmpifySoilMoisture moistureSensor(dataPin);
 
 unsigned long moistureValue = 0;
+unsigned long moisturePercentage = 0;
 
 void setup()
 {
@@ -25,5 +29,9 @@ void loop()
   moistureValue = moistureSensor.readMoisture();
   Serial.print("moisture value = ");
   Serial.println(moistureValue);
+
+  moisturePercentage = map(moistureValue, MOISTURE_MIN_VALUE, MOISTURE_MAX_VALUE, 0, 100);
+  Serial.print("moisture percentage = ");
+  Serial.println(moisturePercentage);
   delay(1000);
 }
