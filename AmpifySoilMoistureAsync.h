@@ -4,6 +4,14 @@
 #include "Arduino.h"
 #include <stdint.h>
 
+#if defined(ARDUINO_ARCH_AVR)
+#if defined(ARDUINO_AVR_MEGA2560)
+#define AMPIFYSOILMOISTURE_AVR_MAX_DEVICE 4
+#else
+#define AMPIFYSOILMOISTURE_AVR_MAX_DEVICE 2
+#endif // defined(ARDUINO_AVR_MEGA2560)
+#endif // defined(ARDUINO_ARCH_AVR)
+
 #if defined(ESP32)
 #define AMPIFYSOILMOISTURE_ESP32_MAX_DEVICE 14
 #endif // defined(ESP32)
@@ -32,7 +40,7 @@ public:
   void setInternalCounter(unsigned long internalCounter);
   unsigned long getInternalCounter();
 
-  static AmpifySoilMoistureAsync *instances[2];
+  static AmpifySoilMoistureAsync *instances[AMPIFYSOILMOISTURE_AVR_MAX_DEVICE];
 #endif // defined(ARDUINO_ARCH_AVR)
 
 #if defined(ESP32)
@@ -61,6 +69,10 @@ private:
 
   static void _sensorIsrExt0();
   static void _sensorIsrExt1();
+#if defined(ARDUINO_AVR_MEGA2560)
+  static void _sensorIsrExt4();
+  static void _sensorIsrExt5();
+#endif // defined(ARDUINO_AVR_MEGA2560)
   void _sensorIsr();
 
   unsigned long _timerCounter = 0;

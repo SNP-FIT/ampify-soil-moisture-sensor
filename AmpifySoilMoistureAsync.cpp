@@ -58,9 +58,37 @@ ISR(TIMER1_COMPA_vect)
       sensor->setTimerCounter(0);
     }
   }
+
+#if defined(ARDUINO_AVR_MEGA2560)
+  if (AmpifySoilMoistureAsync::instances[2] != NULL)
+  {
+    AmpifySoilMoistureAsync *sensor = AmpifySoilMoistureAsync::instances[2];
+    sensor->incrementTimerCounter();
+
+    if (sensor->getTimerCounter() >= sensor->getPeriod())
+    {
+      sensor->setMoistureCounter(sensor->getInternalCounter());
+      sensor->setInternalCounter(0);
+      sensor->setTimerCounter(0);
+    }
+  }
+
+  if (AmpifySoilMoistureAsync::instances[3] != NULL)
+  {
+    AmpifySoilMoistureAsync *sensor = AmpifySoilMoistureAsync::instances[3];
+    sensor->incrementTimerCounter();
+
+    if (sensor->getTimerCounter() >= sensor->getPeriod())
+    {
+      sensor->setMoistureCounter(sensor->getInternalCounter());
+      sensor->setInternalCounter(0);
+      sensor->setTimerCounter(0);
+    }
+  }
+#endif // defined(ARDUINO_AVR_MEGA2560)
 }
 
-AmpifySoilMoistureAsync *AmpifySoilMoistureAsync::instances[2] = {NULL, NULL};
+AmpifySoilMoistureAsync *AmpifySoilMoistureAsync::instances[AMPIFYSOILMOISTURE_AVR_MAX_DEVICE] = {};
 bool AmpifySoilMoistureAsync::_isInitFirstTime = true;
 
 bool AmpifySoilMoistureAsync::begin(unsigned long periodMs)
@@ -79,6 +107,18 @@ bool AmpifySoilMoistureAsync::begin(unsigned long periodMs)
     attachInterrupt(digitalPinToInterrupt(3), _sensorIsrExt1, RISING);
     instances[1] = this;
     break;
+
+#if defined(ARDUINO_AVR_MEGA2560)
+  case 19:
+    attachInterrupt(digitalPinToInterrupt(19), _sensorIsrExt4, RISING);
+    instances[2] = this;
+    break;
+
+  case 18:
+    attachInterrupt(digitalPinToInterrupt(18), _sensorIsrExt5, RISING);
+    instances[3] = this;
+    break;
+#endif // defined(ARDUINO_AVR_MEGA2560)
 
   default:
     // unexpected pin
@@ -168,6 +208,24 @@ void AmpifySoilMoistureAsync::_sensorIsrExt1()
     AmpifySoilMoistureAsync::instances[1]->_sensorIsr();
   }
 }
+
+#if defined(ARDUINO_AVR_MEGA2560)
+void AmpifySoilMoistureAsync::_sensorIsrExt4()
+{
+  if (AmpifySoilMoistureAsync::instances[2] != NULL)
+  {
+    AmpifySoilMoistureAsync::instances[2]->_sensorIsr();
+  }
+}
+
+void AmpifySoilMoistureAsync::_sensorIsrExt5()
+{
+  if (AmpifySoilMoistureAsync::instances[3] != NULL)
+  {
+    AmpifySoilMoistureAsync::instances[3]->_sensorIsr();
+  }
+}
+#endif // defined(ARDUINO_AVR_MEGA2560)
 
 void AmpifySoilMoistureAsync::_sensorIsr()
 {
