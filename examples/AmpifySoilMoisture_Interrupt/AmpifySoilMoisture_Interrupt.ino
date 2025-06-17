@@ -13,10 +13,10 @@
     Timer1 cannot be used with this example.
 */
 
-#include "AmpifySoilMoistureInterrupt.h"
+#include "AmpifySoilMoistureAsync.h"
 
 const int dataPin = 2;
-AmpifySoilMoistureInterrupt moistureSensor(dataPin);
+AmpifySoilMoistureAsync moistureSensor(dataPin);
 
 unsigned long moistureValue = 0;
 

@@ -8,7 +8,7 @@ readMoisture	KEYWORD2
 
 # Ampify Soil Moisture Sensor Interrupt
 
-AmpifySoilMoistureInterrupt	KEYWORD1
+AmpifySoilMoistureAsync	KEYWORD1
 begin	KEYWORD2
 setPeriod	KEYWORD2
 getPeriod	KEYWORD2
