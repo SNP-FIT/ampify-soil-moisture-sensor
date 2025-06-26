@@ -6,14 +6,20 @@
 
     This example is to be used with AVR (such as Arduino UNO), esp32 and esp8266 connected to Ampify Soil Moisture sensor.
 
+    This non-blocking approach, while efficient, comes with some limitations. 
+    It relies on external interrupts and, for certain boards, timer interrupts. 
+    Because of this dependency, not all pins can be used for the sensor in this example
+
     Available pin to use:
       - Arduino UNO R3, Nano, Mini (328-based): 2,3
       - Arduino MEGA 2560: 2,3,18,19
       - ESP32: all usable gpio
       - ESP8266: 4(D2),5(D1),12(D6),13(D7),14(D5)
 
-    For ESP32, Timer1 cannot be used with this example.
+    For Arduino UNO/MEGA and ESP32, Timer1 is already in use and therefore cannot be used with this example..
+    For ESP8266, Ticker library is used.
 */
+
 
 #include "AmpifySoilMoistureAsync.h"
 

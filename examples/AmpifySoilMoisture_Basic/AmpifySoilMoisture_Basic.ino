@@ -26,6 +26,7 @@ void setup()
 
 void loop()
 {
+  //This function has a default execution time of approximately 200ms. For a non-blocking alternative, refer to the examples/AmpifySoilMoisture_Async example and its associated limitations.
   moistureValue = moistureSensor.readMoisture();
   Serial.print("moisture value = ");
   Serial.println(moistureValue);
