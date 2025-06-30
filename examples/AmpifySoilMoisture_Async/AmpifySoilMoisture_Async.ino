@@ -44,7 +44,7 @@ void loop()
   Serial.print("moisture value = ");
   Serial.println(moistureValue);
 
-  moisturePercentage = map(moistureValue, MOISTURE_MIN_VALUE, MOISTURE_MAX_VALUE, 0, 100);
+  moisturePercentage = constrain(map(moistureValue, MOISTURE_MIN_VALUE, MOISTURE_MAX_VALUE, 100, 0),0,100);
   Serial.print("moisture percentage = ");
   Serial.println(moisturePercentage);
   delay(1000);
